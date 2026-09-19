@@ -22,10 +22,10 @@ Internally, `TopK` maintains a min-heap of `(priority, unique_tiebreaker, item)`
 
 ## Key Features
 
-- **High-level abstraction** for "keep the best k items". The priority is a callable on your item type — no need to wrap complex objects in `(score, item)` tuples yourself. Return `-score` to keep the k *least* risky items instead.
+- **High-level abstraction** for "keep the best k items". The priority is a callable on your item type. Return `-score` to keep the k *least* risky items instead.
 - **O(k) space.** Only the current top-k is stored. Additional candidates are either rejected or swapped with the current lowest-priority entry.
-- **Generic and fully typed.** `TopK[T]` accepts a `priority` callable of type `Callable[[T], int | float]`, so type checkers can validate that every stored item is a `T`. Ships with a `py.typed` marker ([PEP 561](https://peps.python.org/pep-0561/)). Works out of the box with mypy, pyright, and other type checkers.
-- **Items need not be comparable.** A monotonic unique tiebreaker is stored alongside each priority so `heapq` never falls through to `T.__lt__`.
+- **Generic and fully typed.** `TopK[T]` stores your items as-is, including third-party types you do not control. You pass a `priority` callable (`Callable[[T], int | float]`) instead of wrapping those objects in `(score, item)` tuples. Type checkers can still validate that every stored item is a `T`. Ships with a `py.typed` marker ([PEP 561](https://peps.python.org/pep-0561/)). Works out of the box with mypy, pyright, and other type checkers.
+- **Items need not be comparable.** Many third-party types have no `__lt__`. A monotonic unique tiebreaker is stored alongside each priority so `heapq` never falls through to `T.__lt__` — you do not have to wrap the item just to make it heap-safe.
 - **Zero runtime dependencies.** The package uses only the Python standard library (`heapq`).
 - **Tested** on Python 3.12 through 3.14.
 
