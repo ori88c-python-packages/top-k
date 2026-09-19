@@ -35,6 +35,7 @@ Changelog = "https://github.com/ori88c-python-packages/top-k/releases"
 [dependency-groups]
 dev = [
     "mypy~=2.3.1",
+    "pre-commit~=4.6.2",
     "pytest~=9.1.1",
     "ruff~=0.16.8",
 ]

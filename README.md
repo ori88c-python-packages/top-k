@@ -69,7 +69,9 @@ for item in (
     top_k.add(item)
 
 assert len(top_k) == 3
-assert top_k.smallest is not None and top_k.smallest.url == "https://steal.example/oauth"
+assert (
+    top_k.smallest is not None and top_k.smallest.url == "https://steal.example/oauth"
+)
 ```
 
 `smallest` is the **lowest** priority among the items currently stored (the heap root), not the highest-scoring URL. `items` yields stored objects in **heap order**, not sorted by priority.
@@ -103,8 +105,7 @@ class LogLine:
     message: str
 
 
-async def iter_log_lines(path: str) -> AsyncIterator[LogLine]:
-    ...
+async def iter_log_lines(path: str) -> AsyncIterator[LogLine]: ...
 
 
 async def top_errors(path: str) -> TopK[LogLine]:
@@ -139,6 +140,12 @@ uv run ruff format .
 
 # Type check
 uv run mypy src
+```
+
+The same three commands run on `git commit` via [pre-commit](https://pre-commit.com/). Format in the hook is `ruff format --check .`, so an unformatted tree fails the commit instead of rewriting it. After `uv sync`, install the hook once:
+
+```bash
+uv run pre-commit install
 ```
 
 ## License
