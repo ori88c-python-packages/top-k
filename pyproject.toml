@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "top-k"
+version = "1.0.0"
+description = "Keep the top-k highest-priority items from a stream in O(k) space. Zero runtime dependencies."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+authors = [
+    { name = "Ori Cohen" },
+]
+keywords = ["top-k", "heap", "priority", "nlargest", "selection", "streaming"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/ori88c-python-packages/top-k"
+Issues = "https://github.com/ori88c-python-packages/top-k/issues"
+Changelog = "https://github.com/ori88c-python-packages/top-k/releases"
+
+[dependency-groups]
+dev = [
+    "mypy~=2.3.1",
+    "pytest~=9.1.1",
+    "ruff~=0.16.8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/top_k"]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["I", "E", "F", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
